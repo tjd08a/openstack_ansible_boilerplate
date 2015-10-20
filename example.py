@@ -1,3 +1,4 @@
+#!/usr/bin/python
 __author__ = 'james'
 # Last modified: 10/14/2015
 # Description: Creates a sample OpenStack instance then configures it using Ansible
@@ -36,7 +37,7 @@ def wait_for_deletion(instance_name):
 
 # Configuration variables for the instance, they may be changed.
 instance_name = "My First Instance"
-keypair_name = "My First Keypair"
+keypair_name = "Test Pair"
 image_name = "CloudVM"
 flavor_name = "Smallish"
 
@@ -98,13 +99,17 @@ instance_reference.add_floating_ip(ip)
 
 
 ip_addresses = nova.servers.ips(instance_reference)
+print ip_addresses
 ip_addr = None
 for interface in ip_addresses:
    ip_list = ip_addresses[interface]
-   ip_addr = ip_list[0]['addr']
-   break
+   for x in range(0, len(ip_list)):
+       ip_addr = ip_list[x]['addr']
+       bad_domain = "192.168.111"
+       if not bad_domain in ip_addr:
+           break
 
-inventory = ansible.setup_host(ip, "test-pair.pem")
+inventory = ansible.setup_host(ip_addr, "test-pair.pem")
 ansible.run_playbook(inventory, "test.yaml")
 
 

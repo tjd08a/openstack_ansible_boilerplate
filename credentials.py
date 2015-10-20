@@ -1,5 +1,5 @@
 __author__ = 'james'
-#!/usr/bin/env python
+#!/usr/bin/python
 import os
 
 def get_keystone_creds():

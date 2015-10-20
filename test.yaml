@@ -6,7 +6,10 @@
   remote_user: ubuntu
   sudo: yes
   tasks:
+  - name: ping
+    ping:
   - name: ensure apache is at the latest version
-    yum:
-      pkg: httpd
+    apt:
+      pkg: vim
       state: latest
+      update_cache: yes
