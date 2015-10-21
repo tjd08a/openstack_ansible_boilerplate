@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: openstack
   vars:
     http_port: 80
     max_clients: 200
@@ -10,6 +10,6 @@
     ping:
   - name: ensure apache is at the latest version
     apt:
-      pkg: vim
+      pkg: apache2
       state: latest
       update_cache: yes

@@ -33,6 +33,7 @@ def setup_host(host_ip, private_key):
     return sample_inventory
 
 def run_playbook(inventory, playbook):
+    utils.VERBOSITY = 4
     stats = callbacks.AggregateStats()
     playbook_cb = callbacks.PlaybookCallbacks(verbose=utils.VERBOSITY)
     runner_cb = callbacks.PlaybookRunnerCallbacks(stats, verbose=utils.VERBOSITY)
@@ -42,7 +43,7 @@ def run_playbook(inventory, playbook):
         callbacks = playbook_cb,
         runner_callbacks = runner_cb,
         inventory = inventory,
-        check = True
+        check=True
     )
 
     pr = pb.run()
